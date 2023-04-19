@@ -17,10 +17,14 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
-app.get('/makehotel', async (req, res) => {
-    const hotel = new HotelModel({ title: 'My Room', description: 'cheap room' });
-    await hotel.save();
-    res.send(hotel);
+app.get('/hotels', async (req, res) => {
+    const hotels = await HotelModel.find({});
+    res.render('hotels/index', { hotels })
+})
+
+app.get('/hotels/:id', async (req, res) => {
+    const hotel = await HotelModel.findById(req.params.id);
+    res.render('hotels/show', { hotel });
 })
 
 
