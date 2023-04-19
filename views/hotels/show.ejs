@@ -9,9 +9,13 @@
 <body>
     <h1><%= hotel.title %></h1>
     <h2><%= hotel.location %></h2>
+    <p><a href="/hotels/<%= hotel._id %>/edit">Edit Hotel</a></p>
     <p>
-        <a href="/hotels/<%= hotel._id %>/edit">Edit Hotel</a>
+        <form action="/hotels/<%= hotel._id %>?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
     </p>
+
 <footer>
     <a href="/hotels">All Hotels</a>
     

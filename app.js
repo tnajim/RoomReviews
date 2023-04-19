@@ -58,6 +58,12 @@ app.put('/hotels/:id', async (req, res) => {
     res.redirect(`/hotels/${hotel._id}`);
 })
 
+app.delete('/hotels/:id', async (req, res) => {
+    const { id } = req.params;
+    await HotelModel.findByIdAndDelete(id);
+    res.redirect('/hotels');
+})
+
 // listen to server
 app.listen(3000, () => {
     console.log("Listening on Port 3000");
