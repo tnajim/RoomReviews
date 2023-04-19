@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 const HotelModel = require('./models/hotel');
 
 
@@ -14,18 +15,19 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method')); //set query string override
 
 app.get('/', (req, res) => {
     res.render('home')
 })
 
-// index route
+// index get route
 app.get('/hotels', async (req, res) => {
     const hotels = await HotelModel.find({});
     res.render('hotels/index', { hotels })
 })
 
-// create hotel route
+// create hotel get route
 app.get('/hotels/new', (req, res) => {
     res.render('hotels/new');
 })
@@ -37,13 +39,24 @@ app.post('/hotels', async (req, res) => {
     res.redirect(`/hotels/${hotel._id}`);
 })
 
-// show hotel route
+// show hotel get route
 app.get('/hotels/:id', async (req, res) => {
     const hotel = await HotelModel.findById(req.params.id);
     res.render('hotels/show', { hotel });
 })
 
+// edit hotel get route
+app.get('/hotels/:id/edit', async (req, res) => {
+    const hotel = await HotelModel.findById(req.params.id);
+    res.render('hotels/edit', { hotel });
+})
 
+// edit hotel put route
+app.put('/hotels/:id', async (req, res) => {
+    const { id } = req.params;
+    const hotel = await HotelModel.findByIdAndUpdate(id, {...req.body.hotel});
+    res.redirect(`/hotels/${hotel._id}`);
+})
 
 // listen to server
 app.listen(3000, () => {
