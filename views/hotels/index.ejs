@@ -8,6 +8,9 @@
 </head>
 <body>
     <h1>All Hotels</h1>
+    <div>
+        <a href="/hotels/new">Add Hotel</a>
+    </div>
     <ul>
         <% for (let hotel of hotels) { %>
             <li><a href="/hotels/<%= hotel._id %>"><%= hotel.title %></a></li>
