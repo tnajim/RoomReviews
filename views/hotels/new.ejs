@@ -1,35 +1,53 @@
 <% layout('layouts/boilerplate') %>
-<div class="row">
-    <h1 class="text-center">New Hotel</h1>
-    <div class="col-6 offset-3">
-        <form action="/hotels" method="POST">
-            <div class="mb-3">
-                <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" id="title" name="hotel[title]" autocomplete="off">
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="location">Location</label>
-                <input class="form-control" type="text" id="location" name="hotel[location]" autocomplete="off">
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="image">Image Url</label>
-                <input class="form-control" type="text" id="image" name="hotel[image]" autocomplete="off">
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="price">Hotel Price</label>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input class="form-control" type="text" id="price" name="hotel[price]" placeholder="0.00">
+    <div class="row">
+        <h1 class="text-center">New Hotel</h1>
+        <div class="col-6 offset-3">
+            <form action="/hotels" method="POST" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" id="title" name="hotel[title]" autocomplete="off" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" for="description">Description</label>
-                <textarea class="form-control" type="text" id="description" name="hotel[description]" autocomplete="off"></textarea>
-            </div>
-            <div class="mb-3">
-                <button class="btn btn-success">Add Hotel</button>
-            </div> 
-        </form>
-        <a href="/hotels">All Hotels</a>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input class="form-control" type="text" id="location" name="hotel[location]" autocomplete="off"
+                        required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="image">Image Url</label>
+                    <input class="form-control" type="text" id="image" name="hotel[image]" autocomplete="off" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="price">Hotel Price</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input class="form-control" type="text" id="price" name="hotel[price]" placeholder="0.00"
+                            required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="hotel[description]"
+                        autocomplete="off" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success">Add Hotel</button>
+                </div>
+            </form>
+            <a href="/hotels">All Hotels</a>
+        </div>
     </div>
-</div>
