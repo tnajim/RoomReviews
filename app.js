@@ -2,6 +2,9 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const {hotelSchema} = require('./schemas.js');
+const catchAsync = require('./utils/catchAsync');
+const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const HotelModel = require('./models/hotel');
 
@@ -19,51 +22,74 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method')); //set query string override
 
+const validateHotel = (req, res, next) => {
+    const { error } = hotelSchema.validate(req.body);
+    if (error) {
+        console.log(error);
+        const msg = error.details.map(el => el.message).join(',');
+        throw new ExpressError(msg, 400);
+    } else {
+        next();
+    }
+}
+
 app.get('/', (req, res) => {
     res.render('home')
 })
 
 // index get route
-app.get('/hotels', async (req, res) => {
+app.get('/hotels', catchAsync(async (req, res) => {
     const hotels = await HotelModel.find({});
     res.render('hotels/index', { hotels })
-})
+}))
 
-// create hotel get route
+// create new hotel get route
 app.get('/hotels/new', (req, res) => {
     res.render('hotels/new');
 })
 
-// create hotel post route
-app.post('/hotels', async (req, res) => {
+// create new hotel post route
+app.post('/hotels', validateHotel, catchAsync(async (req, res, next) => {
+    // if (!req.body.hotel) throw new ExpressError('Invalid Hotel Data', 400);
     const hotel = new HotelModel(req.body.hotel);
     await hotel.save();
     res.redirect(`/hotels/${hotel._id}`);
-})
+}))
 
-// show hotel get route
-app.get('/hotels/:id', async (req, res) => {
+// show one hotel get route
+app.get('/hotels/:id', catchAsync(async (req, res) => {
     const hotel = await HotelModel.findById(req.params.id);
     res.render('hotels/show', { hotel });
-})
+}))
 
 // edit hotel get route
-app.get('/hotels/:id/edit', async (req, res) => {
+app.get('/hotels/:id/edit', catchAsync(async (req, res) => {
     const hotel = await HotelModel.findById(req.params.id);
     res.render('hotels/edit', { hotel });
-})
+}))
 
 // edit hotel put route
-app.put('/hotels/:id', async (req, res) => {
+app.put('/hotels/:id', validateHotel, catchAsync(async (req, res) => {
     const { id } = req.params;
-    const hotel = await HotelModel.findByIdAndUpdate(id, {...req.body.hotel});
+    const hotel = await HotelModel.findByIdAndUpdate(id, { ...req.body.hotel });
     res.redirect(`/hotels/${hotel._id}`);
-})
+}))
 
-app.delete('/hotels/:id', async (req, res) => {
+app.delete('/hotels/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await HotelModel.findByIdAndDelete(id);
     res.redirect('/hotels');
+}))
+
+// catch non existing url and throw ExpressError to next
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page Not Found', 404))
+})
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'Something went wrong...';
+    res.status(statusCode).render('error', { err });
 })
 
 // listen to server
