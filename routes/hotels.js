@@ -36,11 +36,19 @@ router.post('/', validateHotel, catchAsync(async (req, res, next) => {
 // show one hotel get route
 router.get('/:id', catchAsync(async (req, res) => {
     const hotel = await HotelModel.findById(req.params.id).populate('reviews');
+    if (!hotel) {
+        req.flash('error', 'Could not find that Hotel');
+        return res.redirect('/hotels');
+    }
     res.render('hotels/show', { hotel });
 }))
 // edit hotel get route
 router.get('/:id/edit', catchAsync(async (req, res) => {
     const hotel = await HotelModel.findById(req.params.id);
+    if (!hotel) {
+        req.flash('error', 'Could not find that Hotel');
+        return res.redirect('/hotels');
+    }
     res.render('hotels/edit', { hotel });
 }))
 // edit hotel put route
