@@ -17,17 +17,20 @@
           <li class="list-group-item">Submitted by: <%= hotel.author.username %></li>
           <li class="list-group-item">$<%= hotel.price %>/night</li>
         </ul>
+        <% if (currentUser && hotel.author.equals(currentUser._id)) { %>
         <div class="card-body">
           <a class="btn btn-primary card-link" href="/hotels/<%= hotel._id %>/edit">Edit Hotel</a>
           <form class="d-inline" action="/hotels/<%= hotel._id %>?_method=DELETE" method="POST">
             <button class="btn btn-danger card-link">Delete</button>
           </form>
         </div>
+        <% } %>
         <div class="card-footer text-body-secondary">
           2 days ago
         </div>
       </div>
     </div>
+
     <div class="col-6">
       <h3>Leave a Review</h3>
       <form action="/hotels/<%= hotel._id %>/reviews" method="POST" class="mb-3 needs-validation" novalidate>
