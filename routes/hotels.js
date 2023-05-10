@@ -30,15 +30,16 @@ router.get('/new', isLoggedIn, (req, res) => {
 })
 // create new hotel post route
 router.post('/', isLoggedIn, validateHotel, catchAsync(async (req, res, next) => {
-    // if (!req.body.hotel) throw new ExpressError('Invalid Hotel Data', 400);
     const hotel = new HotelModel(req.body.hotel);
+    hotel.author = req.user._id;
     await hotel.save();
     req.flash('success', 'Successfully added a new hotel listing!');
     res.redirect(`/hotels/${hotel._id}`);
 }))
 // show one hotel get route
 router.get('/:id', catchAsync(async (req, res) => {
-    const hotel = await HotelModel.findById(req.params.id).populate('reviews');
+    const hotel = await HotelModel.findById(req.params.id).populate('reviews').populate('author');
+    console.log(hotel);
     if (!hotel) {
         req.flash('error', 'Could not find that Hotel');
         return res.redirect('/hotels');
