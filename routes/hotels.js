@@ -25,8 +25,12 @@ router.post('/', isLoggedIn, validateHotel, catchAsync(async (req, res, next) =>
 }))
 // show one hotel get route
 router.get('/:id', catchAsync(async (req, res) => {
-    const hotel = await HotelModel.findById(req.params.id).populate('reviews').populate('author');
-    console.log(hotel);
+    const hotel = await HotelModel.findById(req.params.id).populate({
+        path: 'reviews',
+        populate: {
+            path: 'author'
+        }
+    }).populate('author');
     if (!hotel) {
         req.flash('error', 'Could not find that Hotel');
         return res.redirect('/hotels');
