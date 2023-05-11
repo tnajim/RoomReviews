@@ -2,22 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const catchAsync = require('../utils/catchAsync');
-const ExpressError = require('../utils/ExpressError');
-const { isLoggedIn } = require('../middleware');
+const { isLoggedIn, isAuthor, validateHotel } = require('../middleware');
 
-const { hotelSchema } = require('../schemas.js');
 const HotelModel = require('../models/hotel');
-
-const validateHotel = (req, res, next) => {
-    const { error } = hotelSchema.validate(req.body);
-    if (error) {
-        console.log(error);
-        const msg = error.details.map(el => el.message).join(',');
-        throw new ExpressError(msg, 400);
-    } else {
-        next();
-    }
-}
 
 // index get route
 router.get('/', catchAsync(async (req, res) => {
@@ -47,8 +34,9 @@ router.get('/:id', catchAsync(async (req, res) => {
     res.render('hotels/show', { hotel });
 }))
 // edit hotel get route
-router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
-    const hotel = await HotelModel.findById(req.params.id);
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const hotel = await HotelModel.findById(id);
     if (!hotel) {
         req.flash('error', 'Could not find that Hotel');
         return res.redirect('/hotels');
@@ -56,14 +44,14 @@ router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
     res.render('hotels/edit', { hotel });
 }))
 // edit hotel put route
-router.put('/:id', isLoggedIn, validateHotel, catchAsync(async (req, res) => {
+router.put('/:id', isLoggedIn, isAuthor, validateHotel, catchAsync(async (req, res) => {
     const { id } = req.params;
     const hotel = await HotelModel.findByIdAndUpdate(id, { ...req.body.hotel });
     req.flash('success', 'Successfully updated Hotel listing!');
     res.redirect(`/hotels/${hotel._id}`);
 }))
 // delete hotel route
-router.delete('/:id', isLoggedIn, catchAsync(async (req, res) => {
+router.delete('/:id', isLoggedIn, isAuthor, catchAsync(async (req, res) => {
     const { id } = req.params;
     await HotelModel.findByIdAndDelete(id);
     req.flash('success', 'Successfully deleted Hotel!');
