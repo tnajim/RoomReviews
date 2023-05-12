@@ -7,25 +7,12 @@ const ExpressError = require('../utils/ExpressError');
 
 const HotelModel = require('../models/hotel');
 const Review = require('../models/review');
+const reviews = require('../controllers/reviews');
 
 // post review route
-router.post('/', isLoggedIn, validateReview, catchAsync(async (req, res) => {
-    const hotel = await HotelModel.findById(req.params.id);
-    const review = new Review(req.body.review);
-    review.author = req.user._id;
-    hotel.reviews.push(review);
-    await review.save();
-    await hotel.save();
-    req.flash('success', 'Created new review!');
-    res.redirect(`/hotels/${hotel._id}`);
-}))
+router.post('/', isLoggedIn, validateReview, catchAsync(reviews.createReview));
+
 // delete review route
-router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(async (req, res) => {
-    const { id, reviewId } = req.params;
-    await HotelModel.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-    await Review.findByIdAndDelete(reviewId);
-    req.flash('success', 'Successfully deleted review!');
-    res.redirect(`/hotels/${id}`)
-}))
+router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(reviews.deleteReview));
 
 module.exports = router;
