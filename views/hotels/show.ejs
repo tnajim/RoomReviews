@@ -69,7 +69,6 @@
             <p class="starability-result" data-rating="<%= review.rating %>">
               Rated: <%= review.rating %> stars
             </p>
-            <!-- <h6 class="card-subtitle mb-2 text-body-secondary">Posted by: <%= review.author.username %></h6> -->
             <p class="card-text">Review: <%= review.body %></p>
             <% if (currentUser && review.author.equals(currentUser._id)) { %>
             <form action="/hotels/<%= hotel._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
