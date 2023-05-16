@@ -11,8 +11,10 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.createHotel = async (req, res, next) => {
     const hotel = new HotelModel(req.body.hotel);
+    hotel.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     hotel.author = req.user._id;
     await hotel.save();
+    console.log(hotel);
     req.flash('success', 'Successfully added a new hotel listing!');
     res.redirect(`/hotels/${hotel._id}`);
 }
@@ -44,6 +46,9 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateHotel = async (req, res) => {
     const { id } = req.params;
     const hotel = await HotelModel.findByIdAndUpdate(id, { ...req.body.hotel });
+    const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
+    hotel.images.push(...imgs);
+    await hotel.save();
     req.flash('success', 'Successfully updated Hotel listing!');
     res.redirect(`/hotels/${hotel._id}`);
 }

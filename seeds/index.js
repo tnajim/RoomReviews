@@ -20,9 +20,18 @@ const seedDB = async () => {
             author: '645af5197ce6f05a79c95393',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
-            image: 'https://source.unsplash.com/collection/4977823',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi repudiandae explicabo tempore sequi quo voluptatibus eius quidem eos! Ab neque praesentium exercitationem earum beatae, amet eos accusantium sit perferendis delectus?',
-            price
+            price,
+            images: [
+                {
+                  url: 'https://res.cloudinary.com/dtntqvwwe/image/upload/v1684226034/RoomReviews/mqrrpvze4oyeyr0am5os.jpg',
+                  filename: 'RoomReviews/mqrrpvze4oyeyr0am5os'
+                },
+                {
+                  url: 'https://res.cloudinary.com/dtntqvwwe/image/upload/v1684226035/RoomReviews/kd0qej5y0y1rf0wi8m29.jpg',
+                  filename: 'RoomReviews/kd0qej5y0y1rf0wi8m29'
+                }
+              ]
         })
         await hotel.save();
     }
