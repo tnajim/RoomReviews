@@ -1,4 +1,5 @@
 const HotelModel = require('../models/hotel');
+const { cloudinary } = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
     const hotels = await HotelModel.find({});
@@ -45,10 +46,18 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateHotel = async (req, res) => {
     const { id } = req.params;
+    console.log(req.body);
     const hotel = await HotelModel.findByIdAndUpdate(id, { ...req.body.hotel });
     const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
     hotel.images.push(...imgs);
     await hotel.save();
+    //$pull: pulls elements out of the images array, where filename is not exactly equal to something but in deleteImages
+    if (req.body.deleteImages) {
+        for (let filename of req.body.deleteImages) {
+            await cloudinary.uploader.destroy(filename);
+        }
+        await hotel.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } });
+    }
     req.flash('success', 'Successfully updated Hotel listing!');
     res.redirect(`/hotels/${hotel._id}`);
 }
