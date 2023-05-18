@@ -17,18 +17,23 @@ const seedDB = async () => {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 20) + 10;
         const hotel = new  HotelModel({
+            // your user id here
             author: '645af5197ce6f05a79c95393',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi repudiandae explicabo tempore sequi quo voluptatibus eius quidem eos! Ab neque praesentium exercitationem earum beatae, amet eos accusantium sit perferendis delectus?',
             price,
+            geometry: { 
+              type: 'Point', 
+              coordinates: [ -73.996878, 40.725223 ] 
+            },
             images: [
                 {
                   url: 'https://res.cloudinary.com/dtntqvwwe/image/upload/v1684226034/RoomReviews/mqrrpvze4oyeyr0am5os.jpg',
                   filename: 'RoomReviews/mqrrpvze4oyeyr0am5os'
                 },
                 {
-                  url: 'https://res.cloudinary.com/dtntqvwwe/image/upload/v1684226035/RoomReviews/kd0qej5y0y1rf0wi8m29.jpg',
+                  url: 'https://res.cloudinary.com/dtntqvwwe/image/upload/v1684229502/RoomReviews/hsbjvzqv6xwj4pnugxsk.jpg',
                   filename: 'RoomReviews/kd0qej5y0y1rf0wi8m29'
                 }
               ]
