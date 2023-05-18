@@ -1,4 +1,7 @@
 const HotelModel = require('../models/hotel');
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapboxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({ accessToken: mapboxToken });
 const { cloudinary } = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
@@ -11,7 +14,12 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.createHotel = async (req, res, next) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.hotel.location,
+        limit: 1
+    }).send()
     const hotel = new HotelModel(req.body.hotel);
+    hotel.geometry = geoData.body.features[0].geometry;
     hotel.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     hotel.author = req.user._id;
     await hotel.save();
