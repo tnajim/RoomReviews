@@ -32,11 +32,11 @@ const seedDB = async () => {
             },
             images: [
                 {
-                  url: 'https://res.cloudinary.com/dtntqvwwe/image/upload/v1684226034/RoomReviews/mqrrpvze4oyeyr0am5os.jpg',
+                  url: 'https://res.cloudinary.com/dtntqvwwe/image/upload/v1684718363/RoomReviews/hotel1_v4aque.jpg',
                   filename: 'RoomReviews/mqrrpvze4oyeyr0am5os'
                 },
                 {
-                  url: 'https://res.cloudinary.com/dtntqvwwe/image/upload/v1684229502/RoomReviews/hsbjvzqv6xwj4pnugxsk.jpg',
+                  url: 'https://res.cloudinary.com/dtntqvwwe/image/upload/v1684718367/RoomReviews/hotel3_w9txbo.jpg',
                   filename: 'RoomReviews/kd0qej5y0y1rf0wi8m29'
                 }
               ]
