@@ -5,7 +5,7 @@ const geocoder = mbxGeocoding({ accessToken: mapboxToken });
 const { cloudinary } = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
-    const hotels = await HotelModel.find({});
+    const hotels = await HotelModel.find({}).sort({'_id': -1});
     res.render('hotels/index', { hotels })
 }
 
