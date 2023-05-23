@@ -14,6 +14,8 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 
+const mongoSanitize = require('express-mongo-sanitize');
+
 const userRoutes = require('./routes/users.js');
 const hotelRoutes = require('./routes/hotels.js');
 const reviewRoutes = require('./routes/reviews.js');
@@ -31,6 +33,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true })); // parse req.body
 app.use(methodOverride('_method')); //set query string override
 app.use(express.static(path.join(__dirname, 'public'))); //set public assets folder
+app.use(mongoSanitize({replaceWith: '_'}));
 
 const sessionConfig = {
     secret: 'thisshouldbeasecret',
@@ -54,12 +57,12 @@ passport.deserializeUser(User.deserializeUser());
 
 // global middleware, for res.locals (have access to these in every template)
 app.use((req, res, next) => {
+    console.log(req.query);
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 })
-
 
 // route folders
 app.use('/', userRoutes);
