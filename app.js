@@ -49,8 +49,47 @@ const sessionConfig = {
     }
 }
 app.use(session(sessionConfig));
-app.use(flash());
-app.use(helmet({ contentSecurityPolicy: false }));
+app.use(flash()); // enable flash alerts
+app.use(helmet()); // enable helmet headers security middleware
+
+//allo
+const scriptSrcUrls = [
+    "https://api.tiles.mapbox.com/",
+    "https://api.mapbox.com/",
+    "https://cdn.jsdelivr.net",
+];
+const styleSrcUrls = [
+    "https://cdn.jsdelivr.net/",
+    "https://api.mapbox.com/",
+    "https://api.tiles.mapbox.com/",
+];
+const connectSrcUrls = [
+    "https://api.mapbox.com/",
+    "https://a.tiles.mapbox.com/",
+    "https://b.tiles.mapbox.com/",
+    "https://events.mapbox.com/",
+];
+const fontSrcUrls = ["https://fonts.gstatic.com"];
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://res.cloudinary.com/dtntqvwwe/", //SHOULD MATCH YOUR CLOUDINARY ACCOUNT! 
+                "https://images.unsplash.com/",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
