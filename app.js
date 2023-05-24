@@ -36,11 +36,13 @@ app.use(express.static(path.join(__dirname, 'public'))); //set public assets fol
 app.use(mongoSanitize({replaceWith: '_'}));
 
 const sessionConfig = {
+    name: 'sesh_id',
     secret: 'thisshouldbeasecret',
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure: true,
         expires: Date.now() + (1000 * 60 * 60 * 24 * 7),
         maxAge: (1000 * 60 * 60 * 24 * 7)
     }
@@ -76,11 +78,14 @@ app.get('/', (req, res) => {
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
 })
+
 // default catch error route
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
     if (!err.message) err.message = 'Something went wrong...';
-    res.status(statusCode).render('error', { err });
+    req.flash('error', err.message);
+    return res.redirect('back');
+    // res.status(statusCode).render('error', { err });
 })
 
 // listen to server
