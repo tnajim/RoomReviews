@@ -10,9 +10,9 @@
         <div class="row g-0">
           <div class="col-md-4">
             <% if (hotel.images.length) { %>
-              <img src="<%= hotel.images[0].url %>" class="img-fluid rounded-start" alt="image of a hotel">
+              <img crossorigin="anonymous" src="<%= hotel.images[0].url %>" class="img-fluid rounded-start" alt="image of a hotel">
               <% } else { %>
-                <img src="https://res.cloudinary.com/dtntqvwwe/image/upload/v1684402364/RoomReviews/rcccglj4wp5b7purrrlh.jpg"
+                <img crossorigin="anonymous" src="https://res.cloudinary.com/dtntqvwwe/image/upload/v1684402364/RoomReviews/rcccglj4wp5b7purrrlh.jpg"
                   class="img-fluid rounded-start" alt="image of a hotel">
                 <% } %>
           </div>

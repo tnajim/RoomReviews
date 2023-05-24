@@ -13,6 +13,7 @@ const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
+const helmet = require('helmet');
 
 const mongoSanitize = require('express-mongo-sanitize');
 
@@ -33,7 +34,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true })); // parse req.body
 app.use(methodOverride('_method')); //set query string override
 app.use(express.static(path.join(__dirname, 'public'))); //set public assets folder
-app.use(mongoSanitize({replaceWith: '_'}));
+app.use(mongoSanitize({ replaceWith: '_' }));
 
 const sessionConfig = {
     name: 'sesh_id',
@@ -49,6 +50,7 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(helmet({ contentSecurityPolicy: false }));
 
 app.use(passport.initialize());
 app.use(passport.session());
