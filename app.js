@@ -21,7 +21,10 @@ const userRoutes = require('./routes/users.js');
 const hotelRoutes = require('./routes/hotels.js');
 const reviewRoutes = require('./routes/reviews.js');
 
-mongoose.connect('mongodb://127.0.0.1:27017/room-reviews')
+// const dbUrl = process.env.DB_URL;
+const dbUrl ='mongodb://127.0.0.1:27017/room-reviews'; // (local mongodb)
+
+mongoose.connect(dbUrl)
     .then(() => console.log("MongoDB Connection Established."))
     .catch(error => console.log("MongoDB Error Occured.", error));
 
@@ -62,6 +65,7 @@ const styleSrcUrls = [
     "https://cdn.jsdelivr.net/",
     "https://api.mapbox.com/",
     "https://api.tiles.mapbox.com/",
+    "https://fonts.googleapis.com/"
 ];
 const connectSrcUrls = [
     "https://api.mapbox.com/",
@@ -69,7 +73,10 @@ const connectSrcUrls = [
     "https://b.tiles.mapbox.com/",
     "https://events.mapbox.com/",
 ];
-const fontSrcUrls = ["https://fonts.gstatic.com"];
+const fontSrcUrls = [
+    "https://fonts.gstatic.com/",
+    "https://fonts.googleapis.com/"
+];
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
@@ -124,9 +131,9 @@ app.all('*', (req, res, next) => {
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
     if (!err.message) err.message = 'Something went wrong...';
-    req.flash('error', err.message);
-    return res.redirect('back');
-    // res.status(statusCode).render('error', { err });
+    // req.flash('error', err.message);
+    // return res.redirect('back');
+    res.status(statusCode).render('error', { err });
 })
 
 // listen to server

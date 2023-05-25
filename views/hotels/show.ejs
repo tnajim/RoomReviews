@@ -2,7 +2,7 @@
   <link rel="stylesheet" href="/stylesheets/stars.css">
 
   <div class="row">
-    <div class="col-6">
+    <div class="col-md-6">
       <div id="hotelCarousel" class="carousel slide">
         <div class="carousel-inner">
           <% hotel.images.forEach((img, i)=> { %>
@@ -23,7 +23,6 @@
           <% } %>
       </div>
       <div class="card mb-3">
-
         <div class="card-body">
           <h5 class="card-title">
             <%= hotel.title %>
@@ -54,7 +53,7 @@
       </div>
     </div>
 
-    <div class="col-6">
+    <div id="left-content" class="col-md-6">
       <div id='map' class="mb-3"></div>
       <% if (currentUser) { %>
         <h3>Leave a Review</h3>

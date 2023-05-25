@@ -1,6 +1,6 @@
 body {
     height: 100vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
         url("https://images.unsplash.com/photo-1514977406940-016107995b73?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1570&q=80");
     background-size: cover;
     background-position: center;
@@ -11,6 +11,15 @@ body {
  
 .cover-container {
     max-width: 60vw;
+}
+
+.room-review {
+    font-family: 'Roboto', sans-serif;
+    font-size: 42px;
+}
+
+main {
+    text-shadow: 1px 1px 2px #000000;
 }
  
 .nav-link {
@@ -36,4 +45,9 @@ body {
 .btn-secondary, .btn-secondary:hover {
     color: #333;
     text-shadow: none;
+    transition: 0.25s;
+}
+
+.btn-secondary:hover {
+    border-radius: 1.5rem;
 }

@@ -1,3 +1,14 @@
+body {
+    background-color: #e5e8e1;
+}
+
+#main-navbar {
+    font-family: "Poppins", sans-serif;
+    background-color: #e5e8e1;
+    font-size: 20px;
+    letter-spacing: 0.1rem;
+}
+
 #cluster-map {
     width: 100%;
     height: 500px;
@@ -6,4 +17,44 @@
 #map {
     width: 100%;
     height: 300px;
+}
+
+.nav-link {
+    text-shadow: 1px 2px 1px rgba(129, 129, 129, 0.3);
+    border-bottom: 0.01rem solid transparent;
+}
+
+.nav-link:hover {
+    background-color: #bdc0ba;
+    color: white;
+    border-bottom: 0.01rem solid transparent;
+    border-bottom-color: #777974;
+}
+
+.room-review {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+}
+
+.card-title, .card-text {
+    font-family: "Poppins", sans-serif;
+}
+
+.card-title {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.card-padding {
+    padding: 36px 24px;
+}
+
+.footer {
+    text-shadow: 1px 2px 1px rgba(129, 129, 129, 0.2);
+    background-color: #e5e8e1;
+    color: #777974;
+}
+
+.title-1 {
+    font-size: 2rem;
 }
