@@ -2,19 +2,39 @@
 
 <div id="cluster-map" class="mb-3"></div>
 
-<div id="pagination-navbar">
-  <nav aria-label="Page Navigation">
-    <ul class="pagination">
-      <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'disabled' : '' %>" href="/hotels?page=<%= CurrentPage - 1 %>">Previous</a></li>
-      <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'active' : '' %>" href="/hotels?page=1">1</a></li>
-      <li class="page-item"><a class="page-link <%= CurrentPage === 2 ? 'active' : '' %>" href="/hotels?page=2">2</a></li>
-      <li class="page-item"><a class="page-link <%= CurrentPage === 3 ? 'active' : '' %>" href="/hotels?page=3">3</a></li>
-      <li class="page-item"><a class="page-link <%= CurrentPage === 4 ? 'active' : '' %>" href="/hotels?page=4">4</a></li>
-      <li class="page-item"><a class="page-link <%= CurrentPage === 5 ? 'active' : '' %>" href="/hotels?page=5">5</a></li>
-      <li class="page-item"><a class="page-link <%= CurrentPage === totalPages ? 'disabled' : '' %>" href="/hotels?page=<%= CurrentPage + 1 %>">Next</a></li>
-    </ul>
-  </nav>
+<div class="row">
+  <div class="col-md-3">
+    <form action="/hotels" method="get">
+      <input id="hotel-search" type="text" class="form-control" placeholder="Search Hotels" aria-label="Search" name="q" autocomplete="off">
+    </form>
+  </div>
+  <div class="col-md-9">
+    <div id="pagination-navbar" class="float-end">
+      <nav aria-label="Page Navigation">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'disabled' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=<%= CurrentPage - 1 %>">Previous</a></li>
+          <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=1">1</a></li>
+          <li class="page-item"><a class="page-link <%= CurrentPage === 2 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=2">2</a></li>
+          <li class="page-item"><a class="page-link <%= CurrentPage === 3 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=3">3</a></li>
+          <li class="page-item"><a class="page-link <%= CurrentPage === 4 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=4">4</a></li>
+          <li class="page-item"><a class="page-link <%= CurrentPage === 5 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=5">5</a></li>
+          <li class="page-item"><a class="page-link <%= CurrentPage === totalPages ? 'disabled' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=<%= CurrentPage + 1 %>">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
 </div>
+
+<% if (searchQuery) { %>
+  <div class="row">
+    <div class="col-md-3 mb-3 result-message">
+      <% if (count) { %>
+      <span><%= count %> Results found.</span>
+      <% } else { %>
+        <span>No Results Found.</span>
+      <% } %>
+    </div>
+<% } %>
 
   <div id="hotels-container">
     <% for (let hotel of hotels) { %>

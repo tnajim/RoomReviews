@@ -5,17 +5,32 @@ const geocoder = mbxGeocoding({ accessToken: mapboxToken });
 const { cloudinary } = require('../cloudinary');
 
 module.exports.index = async (req, res) => {
+    const searchQuery = req.query.q || ''; //takes q variable from search form
+    const regexQuery = new RegExp(searchQuery, 'i'); //case insensitive
     const allHotels = await HotelModel.find({}); //all hotels for clustermap data
-    const count = await HotelModel.countDocuments({});
+    const count = await HotelModel.countDocuments({
+        $or: [
+            { title: regexQuery },
+            { location: regexQuery }
+          ]
+        }); //count all results for page count
 
-    const page = parseInt(req.query.page) || 1;
+    const page = parseInt(req.query.page) || 1; // default on page 1
     const pageSize = parseInt(req.query.pageSize) || 10; // default page size 10
     const skip = (page - 1) * pageSize;
     const totalPages = Math.ceil(count / pageSize);
 
-    // paginated results
-    const hotels = await HotelModel.find({}).sort({ '_id': -1 }).skip(skip).limit(pageSize);
-    res.render('hotels/index', { hotels, allHotels, CurrentPage: page, totalPages });
+    // paginated query search in title or location
+    const hotels = await HotelModel.find({
+        $or: [
+            { title: regexQuery },
+            { location: regexQuery }
+          ]
+        })
+        .sort({ '_id': -1 })
+        .skip(skip)
+        .limit(pageSize);
+    res.render('hotels/index', { hotels, allHotels, CurrentPage: page, totalPages, count, searchQuery });
 }
 
 module.exports.renderNewForm = (req, res) => {
