@@ -13,12 +13,22 @@
       <nav aria-label="Page Navigation">
         <ul class="pagination">
           <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'disabled' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=<%= CurrentPage - 1 %>">Previous</a></li>
+          <% if (totalPages !== 0) { %>
           <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=1">1</a></li>
+          <% } %>
+          <% if (totalPages >= 2) { %>
           <li class="page-item"><a class="page-link <%= CurrentPage === 2 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=2">2</a></li>
+          <% } %>
+          <% if (totalPages >= 3) { %>
           <li class="page-item"><a class="page-link <%= CurrentPage === 3 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=3">3</a></li>
+          <% } %>
+          <% if (totalPages >= 4) { %>
           <li class="page-item"><a class="page-link <%= CurrentPage === 4 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=4">4</a></li>
+          <% } %>
+          <% if (totalPages >= 5) { %>
           <li class="page-item"><a class="page-link <%= CurrentPage === 5 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=5">5</a></li>
-          <li class="page-item"><a class="page-link <%= CurrentPage === totalPages ? 'disabled' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=<%= CurrentPage + 1 %>">Next</a></li>
+          <% } %>
+          <li class="page-item"><a class="page-link <%= CurrentPage === totalPages || totalPages === 0 ? 'disabled' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=<%= CurrentPage + 1 %>">Next</a></li>
         </ul>
       </nav>
     </div>
@@ -66,20 +76,34 @@
       </div>
       <% } %>
   </div>
-
-  <div id="pagination-navbar" class="float-end">
-    <nav aria-label="Page Navigation">
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'disabled' : '' %>" href="/hotels?page=<%= CurrentPage - 1 %>">Previous</a></li>
-        <li class="page-item"><a class="page-link active" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="/hotels?page=2">2</a></li>
-        <li class="page-item"><a class="page-link" href="/hotels?page=3">3</a></li>
-        <li class="page-item"><a class="page-link" href="/hotels?page=4">4</a></li>
-        <li class="page-item"><a class="page-link" href="/hotels?page=5">5</a></li>
-        <li class="page-item"><a class="page-link <%= CurrentPage === totalPages ? 'disabled' : '' %>" href="/hotels?page=<%= CurrentPage + 1 %>">Next</a></li>
-      </ul>
-    </nav>
+<div class="row">
+  <div class="offset-6 col-6">
+    <div id="pagination-navbar" class="float-end">
+      <nav aria-label="Page Navigation">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'disabled' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=<%= CurrentPage - 1 %>">Previous</a></li>
+          <% if (totalPages !== 0) { %>
+          <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=1">1</a></li>
+          <% } %>
+          <% if (totalPages >= 2) { %>
+          <li class="page-item"><a class="page-link <%= CurrentPage === 2 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=2">2</a></li>
+          <% } %>
+          <% if (totalPages >= 3) { %>
+          <li class="page-item"><a class="page-link <%= CurrentPage === 3 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=3">3</a></li>
+          <% } %>
+          <% if (totalPages >= 4) { %>
+          <li class="page-item"><a class="page-link <%= CurrentPage === 4 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=4">4</a></li>
+          <% } %>
+          <% if (totalPages >= 5) { %>
+          <li class="page-item"><a class="page-link <%= CurrentPage === 5 ? 'active' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=5">5</a></li>
+          <% } %>
+          <li class="page-item"><a class="page-link <%= CurrentPage === totalPages || totalPages === 0 ? 'disabled' : '' %>" href="/hotels?<%= searchQuery ? 'q='+ searchQuery + '&' : '' %>page=<%= CurrentPage + 1 %>">Next</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
+</div>
+  
 
   <script>
     const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
