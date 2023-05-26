@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const cities = require('./cities');
+const cities = require('./philippines_cities');
 const {places, descriptors} = require('./seedHelpers');
 const HotelModel = require('../models/hotel');
 
@@ -14,20 +14,20 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 const seedDB = async () => {
     await HotelModel.deleteMany({});
     for (let i = 0; i < 300; i++) {
-        const random1000 = Math.floor(Math.random() * 1000);
+        const random3000 = Math.floor(Math.random() * 3000);
         const price = Math.floor(Math.random() * 20) + 10;
         const hotel = new  HotelModel({
-            // your user id here
+            // your user id here (author for all seed hotels)
             author: '645af5197ce6f05a79c95393',
-            location: `${cities[random1000].city}, ${cities[random1000].state}`,
+            location: `${cities[random3000].name}, ${cities[random3000].state_name}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi repudiandae explicabo tempore sequi quo voluptatibus eius quidem eos! Ab neque praesentium exercitationem earum beatae, amet eos accusantium sit perferendis delectus?',
             price,
             geometry: { 
               type: 'Point', 
               coordinates: [
-                cities[random1000].longitude,
-                cities[random1000].latitude
+                cities[random3000].longitude,
+                cities[random3000].latitude
               ] 
             },
             images: [
