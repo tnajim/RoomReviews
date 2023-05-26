@@ -2,6 +2,20 @@
 
 <div id="cluster-map" class="mb-3"></div>
 
+<div id="pagination-navbar">
+  <nav aria-label="Page Navigation">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'disabled' : '' %>" href="/hotels?page=<%= CurrentPage - 1 %>">Previous</a></li>
+      <li class="page-item"><a class="page-link active" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="/hotels?page=2">2</a></li>
+      <li class="page-item"><a class="page-link" href="/hotels?page=3">3</a></li>
+      <li class="page-item"><a class="page-link" href="/hotels?page=4">4</a></li>
+      <li class="page-item"><a class="page-link" href="/hotels?page=5">5</a></li>
+      <li class="page-item"><a class="page-link <%= CurrentPage === totalPages ? 'disabled' : '' %>" href="/hotels?page=<%= CurrentPage + 1 %>">Next</a></li>
+    </ul>
+  </nav>
+</div>
+
   <div id="hotels-container">
     <% for (let hotel of hotels) { %>
       <div class="card mb-3">
@@ -33,8 +47,22 @@
       <% } %>
   </div>
 
+  <div id="pagination-navbar">
+    <nav aria-label="Page Navigation">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'disabled' : '' %>" href="/hotels?page=<%= CurrentPage - 1 %>">Previous</a></li>
+        <li class="page-item"><a class="page-link active" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="/hotels?page=2">2</a></li>
+        <li class="page-item"><a class="page-link" href="/hotels?page=3">3</a></li>
+        <li class="page-item"><a class="page-link" href="/hotels?page=4">4</a></li>
+        <li class="page-item"><a class="page-link" href="/hotels?page=5">5</a></li>
+        <li class="page-item"><a class="page-link <%= CurrentPage === totalPages ? 'disabled' : '' %>" href="/hotels?page=<%= CurrentPage + 1 %>">Next</a></li>
+      </ul>
+    </nav>
+  </div>
+
   <script>
     const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
-    const hotels = {features: <%- JSON.stringify(hotels) %>}
+    const hotels = {features: <%- JSON.stringify(allHotels) %>}
   </script>
   <script src="/javascripts/clusterMap.js"></script>
