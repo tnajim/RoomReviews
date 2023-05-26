@@ -6,11 +6,11 @@
   <nav aria-label="Page Navigation">
     <ul class="pagination">
       <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'disabled' : '' %>" href="/hotels?page=<%= CurrentPage - 1 %>">Previous</a></li>
-      <li class="page-item"><a class="page-link active" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="/hotels?page=2">2</a></li>
-      <li class="page-item"><a class="page-link" href="/hotels?page=3">3</a></li>
-      <li class="page-item"><a class="page-link" href="/hotels?page=4">4</a></li>
-      <li class="page-item"><a class="page-link" href="/hotels?page=5">5</a></li>
+      <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'active' : '' %>" href="/hotels?page=1">1</a></li>
+      <li class="page-item"><a class="page-link <%= CurrentPage === 2 ? 'active' : '' %>" href="/hotels?page=2">2</a></li>
+      <li class="page-item"><a class="page-link <%= CurrentPage === 3 ? 'active' : '' %>" href="/hotels?page=3">3</a></li>
+      <li class="page-item"><a class="page-link <%= CurrentPage === 4 ? 'active' : '' %>" href="/hotels?page=4">4</a></li>
+      <li class="page-item"><a class="page-link <%= CurrentPage === 5 ? 'active' : '' %>" href="/hotels?page=5">5</a></li>
       <li class="page-item"><a class="page-link <%= CurrentPage === totalPages ? 'disabled' : '' %>" href="/hotels?page=<%= CurrentPage + 1 %>">Next</a></li>
     </ul>
   </nav>
@@ -47,7 +47,7 @@
       <% } %>
   </div>
 
-  <div id="pagination-navbar">
+  <div id="pagination-navbar" class="float-end">
     <nav aria-label="Page Navigation">
       <ul class="pagination">
         <li class="page-item"><a class="page-link <%= CurrentPage === 1 ? 'disabled' : '' %>" href="/hotels?page=<%= CurrentPage - 1 %>">Previous</a></li>
