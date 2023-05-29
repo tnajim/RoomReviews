@@ -41,9 +41,11 @@ app.use(methodOverride('_method')); //set query string override
 app.use(express.static(path.join(__dirname, 'public'))); //set public assets folder
 app.use(mongoSanitize({ replaceWith: '_' }));
 
+const secret = process.env.SECRET || 'thisisasecret!';
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
-    secret: 'thisisasecret!',
+    secret,
     touchAfter: (24 * 60 * 60)
 })
 
@@ -54,7 +56,7 @@ store.on("error", function (e) {
 const sessionConfig = {
     store,
     name: 'sesh_id',
-    secret: 'thisshouldbeasecret',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
