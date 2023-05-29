@@ -23,8 +23,8 @@ const reviewRoutes = require('./routes/reviews.js');
 
 const MongoStore = require('connect-mongo');
 
-// const dbUrl = process.env.DB_URL;
-const dbUrl ='mongodb://127.0.0.1:27017/room-reviews'; // (local mongodb)
+const dbUrl = process.env.DB_URL; // (for deployment)
+// const dbUrl ='mongodb://127.0.0.1:27017/room-reviews'; // (local mongodb)
 
 mongoose.connect(dbUrl)
     .then(() => console.log("MongoDB Connection Established."))
