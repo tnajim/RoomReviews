@@ -21,6 +21,8 @@ const userRoutes = require('./routes/users.js');
 const hotelRoutes = require('./routes/hotels.js');
 const reviewRoutes = require('./routes/reviews.js');
 
+const MongoStore = require('connect-mongo');
+
 // const dbUrl = process.env.DB_URL;
 const dbUrl ='mongodb://127.0.0.1:27017/room-reviews'; // (local mongodb)
 
@@ -39,7 +41,18 @@ app.use(methodOverride('_method')); //set query string override
 app.use(express.static(path.join(__dirname, 'public'))); //set public assets folder
 app.use(mongoSanitize({ replaceWith: '_' }));
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    secret: 'thisisasecret!',
+    touchAfter: (24 * 60 * 60)
+})
+
+store.on("error", function (e) {
+    console.log("Session Store Error.", e)
+})
+
 const sessionConfig = {
+    store,
     name: 'sesh_id',
     secret: 'thisshouldbeasecret',
     resave: false,
