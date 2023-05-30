@@ -20,6 +20,7 @@ App built with MongoDB, Express and Node.js stack
 - Maps using [mapbox](https://www.mapbox.com/)
 - Basic website security ([sanitize-html](https://www.npmjs.com/package/sanitize-html) for xss, [helmet](https://www.npmjs.com/package/helmet) package for protecting http headers and whitelisting allowed resources)
 - [connect-mongo](https://www.npmjs.com/package/connect-mongo) used for the session store
+- Hotels pagination and search bar to search using hotel name or location
 - Deployed using Render, [RoomReviews](https://roomreviews.onrender.com/)
 
 ### to do list: 
