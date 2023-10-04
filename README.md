@@ -5,6 +5,8 @@ Personal fullstack project for testing.
 
 App built with MongoDB, Express and Node.js stack
 
+![homepage](https://github.com/tnajim/RoomReviews/assets/47018694/6fe7bf6b-580b-4d18-9dac-d7047e660d0d)
+
 ## Implemented features
 - Full CRUD for the Hotel model
 - Database seeding
@@ -29,3 +31,20 @@ App built with MongoDB, Express and Node.js stack
 - add default geodata/flash message in case location could not be found on mapbox (\controllers\hotels.js:22:47))
 - flash message on same page instead of redirecting to error.ejs
 - limit review display on hotel show page
+
+### Hotels
+![hotels](https://github.com/tnajim/RoomReviews/assets/47018694/114816ad-b21e-4f15-a1ea-65aa80ffa6e6)
+### View Hotel
+![hotel1](https://github.com/tnajim/RoomReviews/assets/47018694/9b33a26d-a3e7-4b3a-aa26-8d1b8de1268f)
+### Login
+![login](https://github.com/tnajim/RoomReviews/assets/47018694/81ffa05e-cc9e-461c-a8b2-274f341ba11e)
+### Signup
+![signup](https://github.com/tnajim/RoomReviews/assets/47018694/1ffbc606-479b-49ff-8eef-1885dc3f0ffa)
+### New Hotel
+![newhotel](https://github.com/tnajim/RoomReviews/assets/47018694/ca42141a-796f-4c41-a8c5-dfae6043f7c3)
+### Edit Hotel
+![hoteledit](https://github.com/tnajim/RoomReviews/assets/47018694/fccd6396-f613-4821-964e-0f270e6cb97d)
+### Editing Hotel as the Author
+![hotel1admin2](https://github.com/tnajim/RoomReviews/assets/47018694/fd60b6a4-a082-4bba-bfcf-422afe340b7a)
+
+
