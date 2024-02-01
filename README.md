@@ -1,36 +1,37 @@
 # RoomReviews
-Personal fullstack project for testing.
+Personal Full Stack Project
 
 [RoomReviews](https://roomreviews.onrender.com/) is an online directory for discovering local hotels and reviewing them, similar to yelp
 
-App built with MongoDB, Express and Node.js stack
+Live Website Link: [RoomReviews](https://roomreviews.onrender.com/) (takes time to load using free hosting on render)
+
+App was built using MongoDB, Express and Node.js stack
 
 ![homepage](https://github.com/tnajim/RoomReviews/assets/47018694/6fe7bf6b-580b-4d18-9dac-d7047e660d0d)
 
 ## Implemented features
-- Full CRUD for the Hotel model
-- Database seeding
+- Full CRUD for the Hotel, Review and User model
 - Express routers and controllers
-- Templating and partials using [ejs](https://www.npmjs.com/package/ejs) and [ejs-mate](https://www.npmjs.com/package/ejs-mate)
+- Authentication and Route Authorization
 - Custom error handling middleware
 - Client-side form validations and back-end [JOI schema](https://www.npmjs.com/package/joi) validations
-- Hotel, Review and User models
+- Basic website security ([sanitize-html](https://www.npmjs.com/package/sanitize-html) for xss protection, [helmet](https://www.npmjs.com/package/helmet) package for protecting http headers and whitelisting allowed resources)
+- Front-End made with Templating and Partials using [ejs](https://www.npmjs.com/package/ejs) and [ejs-mate](https://www.npmjs.com/package/ejs-mate)
 - [Express Sessions](https://www.npmjs.com/package/express-session)
 - User model using [passport.js](https://www.passportjs.org/) package to salt and hash passwords
-- Basic authentication and route authorization
 - Image uploading using [multer](https://www.npmjs.com/package/multer) and [cloudinary](https://cloudinary.com/)
 - Maps using [mapbox](https://www.mapbox.com/)
-- Basic website security ([sanitize-html](https://www.npmjs.com/package/sanitize-html) for xss, [helmet](https://www.npmjs.com/package/helmet) package for protecting http headers and whitelisting allowed resources)
 - [connect-mongo](https://www.npmjs.com/package/connect-mongo) used for the session store
 - Hotels pagination and search bar to search using hotel name or location
+- Database seeding
 - Deployed using Render, [RoomReviews](https://roomreviews.onrender.com/)
 
 ### to do list: 
-- add password constraints when registering
-- add limit to how many images can be uploaded and limit file size
+- add password constraints when registering (regex maybe)
+- add limit to how many images can be uploaded and limit file size (check cloudinary settings)
 - add default geodata/flash message in case location could not be found on mapbox (\controllers\hotels.js:22:47))
 - flash message on same page instead of redirecting to error.ejs
-- limit review display on hotel show page
+- limit review display on hotel show page (implement pagination)
 
 ### Hotels
 ![hotels](https://github.com/tnajim/RoomReviews/assets/47018694/114816ad-b21e-4f15-a1ea-65aa80ffa6e6)
